@@ -35,10 +35,11 @@
           <a class="brand" href="#">Meu Site</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Pagina 1</a></li>
-              <li><a href="#about">Pagina 2</a></li>
-              <li><a href="#about">Sobre Mim</a></li>
-              <li><a href="#contact">Contato</a></li>
+              <li class="active"><a href="page1.php">Pagina 1</a></li>
+              <li><a href="page2.php">Pagina 2</a></li>
+              <li><a href="aboutme.php">Sobre Mim</a></li>
+              <li><a href="contact.php">Contato</a></li>
+              <li><a href="formulario.php">Formulario</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -53,7 +54,7 @@
             <ul class="nav nav-list">
               <li class="nav-header">Lateral</li>
               <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="#page2.php">Pagina 2</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
             </ul>
