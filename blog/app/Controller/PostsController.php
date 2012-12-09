@@ -1,55 +1,83 @@
 <?php
 
-  class PostsController extends AppController {
-    public $helpers = array ('Html','Form');
-    public $components = array ("Session");
+	class PostsController extends AppController {
 
-    #action
-    # /posts/index
-    public function index() {
-      $todasAsPostagens = $this->Post->find('all');
+		public $helpers = array('Html','form');
+		public $Components = array("Session");
 
-      # jogar pra VIEW
-      $this->set('posts',$todasAsPostagens); 
-      }
+		//action
+		// /posts/index
+		public function index(){
+				
+			$this->paginate = array('limit' => 5);	
 
-      // /post/view/3
-      public function view($id = null){
+			$todosAsPostagens = $this->paginate('Post');
 
-        #setar o post com id == 3
-        $this->Post->id = $id;
-
-        #procurar no banco o item com id 3
-        $p = $this->Post->read();
-
-        #enviando para a VIEW os campos do item
-        $this->set('post', $p);
+			//$todosAsPostagens = $this->Post->find('all');
 
 
-      }
+			//jogar para VIEW
+			$this->set('posts', $todosAsPostagens);
 
-      # /post/add
-      public function add(){
-        #se for enviado um POST pegar os dados do forme salvar no banco
-       if ($this->request->is('post')) {
+		}
 
-        $dadosDoFormulario = $this->request->data;
+		// /posts/view/3
+		public function view($id = null){
 
-        # tentar salvar os dados no banco
-        # se conseguir salvar, mostrar MSG e REDIMENCIONAR para o INDEX
-        if ($this->Post->save($dadosDoFormulario)) {
-          # mostrar MSG
-          $this->Session->setFlash("A Postagem foi inserida com Sucesso! ");
+			// setar o Post com o id == 3
+			$this->Post->id = $id;
+			
 
-          # redirecionar para o index
-          $this->redirect(array('action' => 'index'));
-
-      }
-  }
-
-}
-
-}
+			//procurar no banco o item com o id 3
+			$p = $this->Post->read();
 
 
-?>
+			//enviando para o VIEW os campos do item
+			$this->set('post', $p);
+		}
+
+		// /posts/add
+		public function add() {
+		        // se for enviado um POST pegar os dados do form e sarvar no banco
+		        if ($this->request->is('post')) {
+
+		        	$dadosDoFormulario = $this->request->data;
+
+		        	//tentar salvar os dados no banco
+		        	//se conseguir sarvar, mostar MSG e REDIRECIONAR para o INDEX
+
+		            if ($this->Post->save($dadosDoFormulario)) {
+		                // mostrar MSG
+		            	$this->Session->setFlash('Postagem inserida com Sucesso');
+
+		            	//redirecionar para o index
+		                $this->redirect(array('action' => 'index'));
+		            }
+		        }
+		    }
+
+		function edit($id = null) {
+			    $this->Post->id = $id;
+			    if ($this->request->is('get')) {
+			        $this->request->data = $this->Post->read();
+			    } else {
+			        if ($this->Post->save($this->request->data)) {
+			            $this->Session->setFlash('Postagem atualizada com sucesso.');
+			            $this->redirect(array('action' => 'index'));
+			        }
+			    }
+			}  
+
+
+    	function delete($id) {
+
+
+		    if (!$this->request->is('post')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Post->delete($id)) {
+		        $this->Session->setFlash('Postagem ' . $id . ' deletada.');
+		        $this->redirect(array('action' => 'index'));
+		    }
+		}
+	}

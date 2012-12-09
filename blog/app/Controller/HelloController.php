@@ -1,39 +1,8 @@
-<?php 
+<?php
 
 class HelloController extends AppController {
+	public function index(){
 
-  // action
-  // hello/index
-  public function index(){
-
-    $nomeCompleto = "Fernando Tecchio";
-
-    // enviando o conteudo da variavel
-    // para a VIEW 
-
-    $this->set('nome', $nomeCompleto);
-
-  }
-
-  // /hello/sobremim
-    public function sobremim(){
-
-
-  }
-
-
-    // /hello/contato
-    public function contato(){
-
-
-  }
-
-    // /hello/teste
-    public function teste(){
-
-
-  }
-
+	}
 
 }
-?>
